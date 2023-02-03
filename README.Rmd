@@ -16,6 +16,7 @@ knitr::opts_chunk$set(
 # sliopt: Single Link Indicator OPTimization for geospatial analysis
 
 <!-- badges: start -->
+[![R-CMD-check](https://github.com/chris31415926535/sliopt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/chris31415926535/sliopt/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Sliopt provides an algorithm to create optimized single-link indicators from one set of (non-self-overlapping) geometries to a different overlapping set of (non-self-overlapping) geometries. It requires you to have one "source of truth" for each set of geometries.
@@ -32,8 +33,8 @@ This package assumes that you are able to get at least one set of values that is
 
 You can install the development version of sliopt like so:
 
-``` r
-
+``` {r, eval=FALSE}
+devtools::install_github("https://github.com/chris31415926535/sliopt")
 ```
 
 ## Example

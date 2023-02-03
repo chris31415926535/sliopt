@@ -4,6 +4,8 @@
 # sliopt: Single Link Indicator OPTimization for geospatial analysis
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/chris31415926535/sliopt/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/chris31415926535/sliopt/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 Sliopt provides an algorithm to create optimized single-link indicators
@@ -36,6 +38,7 @@ one of the geometry sets.
 You can install the development version of sliopt like so:
 
 ``` r
+devtools::install_github("https://github.com/chris31415926535/sliopt")
 ```
 
 ## Example
@@ -118,16 +121,16 @@ layer2_count  <- sf::st_join(pop_clusters, layer2_sf) %>%
 sli <- greedy_sli_search(to_shp = layer1_count, to_idcol = "layer1_id", to_valuecol = "layer1_n",
                   from_shp = layer2_count, from_idcol = "layer2_id", from_valuecol = "layer2_n", verbose = FALSE )
 #> Precomputing intersections...
-#> 1/2: Destination Region A2 1/2: Destination Region A2: Best mape: 0.07212
-#> 1/2: Destination Region A2: Best mape: 0.07212 2/2: Destination Region A1 2/2:
-#> Destination Region A1: Best mape: 0.07212 2/2: Destination Region A1: Best
-#> mape: 0.07212 1/2: Destination Region A2 1/2: Destination Region A2: Best mape:
-#> 0.07212 1/2: Destination Region A2: Best mape: 0.07212 2/2: Destination Region
-#> A1 2/2: Destination Region A1: Best mape: 0.07212 2/2: Destination Region A1:
-#> Best mape: 0.07212 1/2: Destination Region A1 1/2: Destination Region A1: Best
-#> mape: 0.07212 1/2: Destination Region A1: Best mape: 0.07212 2/2: Destination
-#> Region A2 2/2: Destination Region A2: Best mape: 0.07212 2/2: Destination Region
-#> A2: Best mape: 0.07212
+#> 1/2: Destination Region A1 1/2: Destination Region A1: Best mape: 0.02481
+#> 1/2: Destination Region A1: Best mape: 0.02481 2/2: Destination Region A2 2/2:
+#> Destination Region A2: Best mape: 0.02481 2/2: Destination Region A2: Best
+#> mape: 0.02481 1/2: Destination Region A1 1/2: Destination Region A1: Best mape:
+#> 0.02481 1/2: Destination Region A1: Best mape: 0.02481 2/2: Destination Region
+#> A2 2/2: Destination Region A2: Best mape: 0.02481 2/2: Destination Region A2:
+#> Best mape: 0.02481 1/2: Destination Region A2 1/2: Destination Region A2: Best
+#> mape: 0.02481 1/2: Destination Region A2: Best mape: 0.02481 2/2: Destination
+#> Region A1 2/2: Destination Region A1: Best mape: 0.02481 2/2: Destination Region
+#> A1: Best mape: 0.02481
 
 layer2_sf %>%
   left_join(sli, by = "layer2_id") %>%
