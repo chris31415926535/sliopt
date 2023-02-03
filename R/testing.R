@@ -85,26 +85,26 @@
 # ######## TESTING WITH IMAGINARY SHAPES
 # library(tidyverse)
 # library(sf)
+# library(sliopt)
 #
-#
-# layer1 <- list(list(matrix(c(0,0, 0,1, 1,1, 1,0, 0,0 ), byrow = TRUE, ncol = 2),
-#                     matrix(c(0,0, 0,1, -1,1, -1,0, 0,0 ), byrow = TRUE, ncol = 2)
-#                   )
-#                )
-#
-# layer1a <- list(matrix(c(0,0, 0,1, 1,1, 1,0, 0,0 ), byrow = TRUE, ncol = 2),
-#                     matrix(c(0,0, 0,1, -1,1, -1,0, 0,0 ), byrow = TRUE, ncol = 2)
-# )
+# # layer1 <- list(list(matrix(c(0,0, 0,1, 1,1, 1,0, 0,0 ), byrow = TRUE, ncol = 2),
+# #                     matrix(c(0,0, 0,1, -1,1, -1,0, 0,0 ), byrow = TRUE, ncol = 2)
+# #                   )
+# #                )
+# #
+# # layer1a <- list(matrix(c(0,0, 0,1, 1,1, 1,0, 0,0 ), byrow = TRUE, ncol = 2),
+# #                     matrix(c(0,0, 0,1, -1,1, -1,0, 0,0 ), byrow = TRUE, ncol = 2)
+# # )
 #
 # layer1b <- list(list(matrix(c(0,0, 0,1, 1,1, 1,0, 0,0 ), byrow = TRUE, ncol = 2)),
 #                 list(matrix(c(0,0, 0,1, -1,1, -1,0, 0,0 ), byrow = TRUE, ncol = 2))
 # )
 #
-# layer2 <- list(list( matrix(c( -1,1, -1,.4, -.6,.4, -.6, 1, -1,1 ), byrow = TRUE, ncol = 2)
-#                     ,matrix(c( -1,0, .4, 0,  .4,.4,  -1,.4, -1,0 ), byrow = TRUE, ncol = 2)
-#                     ,matrix(c( .4,0,  1,0,   1, 1,  .4, 1, .4, 0), byrow = TRUE, ncol = 2)
-#                     ,matrix(c(-.6,1, -.6,.4 ,  .4, .4, .4, 1, -.6, 1), byrow = TRUE, ncol = 2)
-#                     ))
+# # layer2 <- list(list( matrix(c( -1,1, -1,.4, -.6,.4, -.6, 1, -1,1 ), byrow = TRUE, ncol = 2)
+# #                     ,matrix(c( -1,0, .4, 0,  .4,.4,  -1,.4, -1,0 ), byrow = TRUE, ncol = 2)
+# #                     ,matrix(c( .4,0,  1,0,   1, 1,  .4, 1, .4, 0), byrow = TRUE, ncol = 2)
+# #                     ,matrix(c(-.6,1, -.6,.4 ,  .4, .4, .4, 1, -.6, 1), byrow = TRUE, ncol = 2)
+# #                     ))
 #
 # layer2b <- list(list( matrix(c( -1,1, -1,.4, -.6,.4, -.6, 1, -1,1 ), byrow = TRUE, ncol = 2)),
 #                 list( matrix(c( -1,0, .4, 0,  .4,.4,  -1,.4, -1,0 ), byrow = TRUE, ncol = 2)),
@@ -112,11 +112,11 @@
 #                 list( matrix(c(-.6,1, -.6,.4 ,  .4, .4, .4, 1, -.6, 1), byrow = TRUE, ncol = 2))
 # )
 #
-# layer1_sf <- sf::st_multipolygon(layer1) %>%
-#   sf::st_sfc(crs = "WGS84")
-#
-# layer2_sf <- sf::st_multipolygon(layer2) %>%
-#   sf::st_sfc(crs = "WGS84")
+# # layer1_sf <- sf::st_multipolygon(layer1) %>%
+# #   sf::st_sfc(crs = "WGS84")
+# #
+# # layer2_sf <- sf::st_multipolygon(layer2) %>%
+# #   sf::st_sfc(crs = "WGS84")
 #
 # layer1_sf <- lapply(layer1b, sf::st_polygon) %>%
 #   sf::st_sfc(crs="WGS84") %>%
@@ -164,7 +164,7 @@
 #                   from_shp = layer2_count, from_idcol = "layer2_id", from_valuecol = "layer2_n" )
 #
 # layer2_sf %>%
-#   left_join(sli) %>%
+#   left_join(sli, by = "layer2_id") %>%
 #   ggplot() +
 #   geom_sf(aes(fill = layer1_id))
 #

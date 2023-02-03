@@ -177,7 +177,7 @@ leaflet_sli_performance <- function(comparison, ons_shp, var = c("diff_count", "
 #'  }
 generate_weighted_links <- function(from_shp, from_idcol, to_shp, to_idcol){
 
-  `:=` <- rlang::`:=`()
+  `:=` <- rlang::`:=`
   .from_idcol <- .to_idcol <- .area <- geometry <- NULL
 
   # Basic input validation
@@ -301,7 +301,7 @@ create_sli <- function(weighted_links, from_idcol, weights_col = "weight"){
 #'
 greedy_sli_search <- function(from_shp, from_idcol, from_valuecol, to_shp, to_idcol, to_valuecol, optimize_for = c("mape", "mae", "mse"), tolerance = 0.05, iterations = 3, input_sli = NA, shuffle_inputs = TRUE, verbose = FALSE){
 
-  `:=` <- rlang::`:=`()
+  `:=` <- rlang::`:=`
 
   # for R CMD CHECK
   .from_idcol <- weight<-  .to_idcol<- .from_valuecol <- .to_valuecol <- NULL
