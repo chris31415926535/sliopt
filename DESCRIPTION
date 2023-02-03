@@ -1,11 +1,10 @@
 Package: sliopt
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Single Link Indicator OPTimization
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Author: Christopher Belanger
+Maintainer: Christopher Belanger <christopher.a.belanger@gmail.com>
+Description: Create single link indicators for geospatial analysis using greedy optimization.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -20,3 +19,5 @@ Imports:
     stats,
     tidyr,
     tidyselect
+URL: https://github.com/chris31415926535/sliopt
+BugReports: https://github.com/chris31415926535/sliopt/issues
