@@ -41,9 +41,45 @@ You can install the development version of sliopt like so:
 devtools::install_github("https://github.com/chris31415926535/sliopt")
 ```
 
+## Overview of algorithm
+
+The algorithm proceeds as follows:
+
+- For each destination region $Bm$:
+  - For each origin region $Ai$ that intersects $Bm$:
+    - Make note of the current SLI and the current overall SLI error
+      value.
+    - Find each destination region $Bj$ such that $Aj$ and $Bj$
+      intersect, and the area of this intersection is greater than some
+      minimal threshold proportion of $Ai$’s total area.
+      - This is to exclude small overlaps that are due to data errors,
+        for example if two regions are intended to share a border along
+        a road but their shapefile representations overlap slightly
+        along the border.
+    - In turn, assign $Ai$ to each $Bj$ and calculate the resulting
+      overall SLI error value If it is an improvement over the current
+      SLI error value, update the SLI to assign $Ai$ to $Bj$ and make
+      note of the improved error value.
+
+By default the entire algorithm runs three times, with the destination
+regions $Bm$ shuffled to introduce some randomness.
+
 ## Example
 
-This is a basic example which shows you how to solve a common problem:
+This is a basic example using synthetic data.
+
+First, we create two sets of geometries. The first set consists of two
+squares next to each other. The second set consists of rectangles that
+perfectly fill the set of squares. Note that the shapes are
+non-overlappingwithin each geometry set.
+
+Next we create two synthetic population distributions. Using this point
+data, we can calculate “true” population counts over each geometry set.
+
+Then, we can use those true values to create an optimized SLI.
+
+The final image shows the smaller geometries shaded based on which of
+the larger two-square regions each is assigned to.
 
 ``` r
 library(dplyr)
@@ -121,16 +157,16 @@ layer2_count  <- sf::st_join(pop_clusters, layer2_sf) %>%
 sli <- greedy_sli_search(to_shp = layer1_count, to_idcol = "layer1_id", to_valuecol = "layer1_n",
                   from_shp = layer2_count, from_idcol = "layer2_id", from_valuecol = "layer2_n", verbose = FALSE )
 #> Precomputing intersections...
-#> 1/2: Destination Region A1 1/2: Destination Region A1: Best mape: 0.02481
-#> 1/2: Destination Region A1: Best mape: 0.02481 2/2: Destination Region A2 2/2:
-#> Destination Region A2: Best mape: 0.02481 2/2: Destination Region A2: Best
-#> mape: 0.02481 1/2: Destination Region A1 1/2: Destination Region A1: Best mape:
-#> 0.02481 1/2: Destination Region A1: Best mape: 0.02481 2/2: Destination Region
-#> A2 2/2: Destination Region A2: Best mape: 0.02481 2/2: Destination Region A2:
-#> Best mape: 0.02481 1/2: Destination Region A2 1/2: Destination Region A2: Best
-#> mape: 0.02481 1/2: Destination Region A2: Best mape: 0.02481 2/2: Destination
-#> Region A1 2/2: Destination Region A1: Best mape: 0.02481 2/2: Destination Region
-#> A1: Best mape: 0.02481
+#> 1/2: Destination Region A2 1/2: Destination Region A2: Best mape: 0.04772
+#> 1/2: Destination Region A2: Best mape: 0.04772 2/2: Destination Region A1 2/2:
+#> Destination Region A1: Best mape: 0.04772 2/2: Destination Region A1: Best
+#> mape: 0.04772 1/2: Destination Region A1 1/2: Destination Region A1: Best mape:
+#> 0.04772 1/2: Destination Region A1: Best mape: 0.04772 2/2: Destination Region
+#> A2 2/2: Destination Region A2: Best mape: 0.04772 2/2: Destination Region A2:
+#> Best mape: 0.04772 1/2: Destination Region A2 1/2: Destination Region A2: Best
+#> mape: 0.04772 1/2: Destination Region A2: Best mape: 0.04772 2/2: Destination
+#> Region A1 2/2: Destination Region A1: Best mape: 0.04772 2/2: Destination Region
+#> A1: Best mape: 0.04772
 
 layer2_sf %>%
   left_join(sli, by = "layer2_id") %>%
